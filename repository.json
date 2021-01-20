@@ -2,12 +2,13 @@
   "name": "MM1's Packs",
   "packages": [
     {
-      "name": "ALttSM Randomizer - Map and Item Tracker",
-      "game_name": "Super Metroid + ALTTP Randomizer",
-      "version": "10.0.1",
-      "uid": "alttsm_pack_mm1",
-      "author": "Mike Trethewey",
-      "link": "https://github.com/miketrethewey/alttsm_pack_mm1/releases/download/v10.0.1/alttsm_pack_mm1.zip"
+      "name": "Axiom Verge Randomizer",
+      "game_name": "Axiom Verge Randomizer",
+      "version": "0.1",
+      "uid": "averge_pack_mm1",
+      "author": "Seraphin Eveles/Mike Trethewey",
+//      "link": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v0.1/averge_pack_mm1.zip"
+      "link": "https://github.com/miketrethewey/averge_pack_mm1/archive/master.zip"
     }
   ]
 }
