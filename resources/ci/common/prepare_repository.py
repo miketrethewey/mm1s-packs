@@ -37,7 +37,7 @@ def prepare_repository():
         print(apiRes["assets"][0]["browser_download_url"])
         #   set link for package as asset url
         packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
-        repoRepositoryJSON["packages"].push(packageJSON)
+        repoRepositoryJSON["packages"].append(packageJSON)
       repoRepositoryFile.seek(0)
       repoRepositoryFile.write(json.dumps(repoRepositoryJSON, indent=2))
       repoRepositoryFile.truncate()
