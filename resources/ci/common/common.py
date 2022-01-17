@@ -5,14 +5,14 @@ import sys  # default system info
 from my_path import get_py_path
 
 CI_SETTINGS = {}
-with(open(os.path.join("meta","manifests","ci.json"))) as ci_settings_file:
+manifest_path = os.path.join("resources","app","meta","manifests","ci.json")
+if (not os.path.isfile(manifest_path)):
+  raise AssertionError("Manifest not found: " + manifest_path)
+with(open(manifest_path)) as ci_settings_file:
   CI_SETTINGS = json.load(ci_settings_file)
 
-UBUNTU_VERSIONS = CI_SETTINGS["common"]["common"]["ubuntu"]
 DEFAULT_EVENT = "event"
 DEFAULT_REPO_SLUG = '/'.join(CI_SETTINGS["common"]["common"]["repo"])
-FILENAME_CHECKS = CI_SETTINGS["common"]["common"]["filenames"]
-FILESIZE_CHECK = int(CI_SETTINGS["common"]["common"]["filesize"]) * 1024 * 1024
 
 def strtr(strng, replace):
   buf, i = [], 0
@@ -104,10 +104,6 @@ def prepare_env():
   if '-' in OS_NAME:
     OS_VERSION = OS_NAME[OS_NAME.find('-')+1:]
     OS_NAME = OS_NAME[:OS_NAME.find('-')]
-    if OS_NAME == "linux" or OS_NAME == "ubuntu":
-      if OS_VERSION in UBUNTU_VERSIONS:
-        OS_VERSION = UBUNTU_VERSIONS[OS_VERSION]
-      OS_DIST = OS_VERSION
 
   if OS_VERSION == "" and OS_DIST != "" and OS_DIST != "notset":
     OS_VERSION = OS_DIST
@@ -147,26 +143,9 @@ def prepare_filename(BUILD_FILENAME):
 		DEST_FILENAME = DEST_SLUG + DEST_EXTENSION
 	return DEST_FILENAME
 
-# find a binary file if it's executable
-#  failing that, assume it's over 6MB
-def find_binary(listdir):
-  global FILENAME_CHECKS
-  global FILESIZE_CHECK
-
-  BUILD_FILENAMES = []
-  executable = stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH
-  for filename in os.listdir(listdir):
-    if os.path.isfile(filename):
-      if os.path.splitext(filename)[1] != ".py":
-        st = os.stat(filename)
-        mode = st.st_mode
-        big = st.st_size > FILESIZE_CHECK
-        if (mode & executable) or big:
-          for check in FILENAME_CHECKS:
-            if check in filename:
-              BUILD_FILENAMES.append(filename)
-  return BUILD_FILENAMES
-
-if __name__ == "__main__":
+def main():
   env = prepare_env()
   print(env)
+
+if __name__ == "__main__":
+  main()
