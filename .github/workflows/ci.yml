@@ -6,9 +6,9 @@ on: [push, pull_request]
 
 # stuff to do
 jobs:
-  # Install/Process Templates
-  install-process-templates:
-    name: Process Templates
+  # Install/Process Repository
+  install-process-repository:
+    name: Process Repository
     runs-on: ${{ matrix.os-name }}
 
     # VM settings
@@ -31,6 +31,10 @@ jobs:
           architecture: "x64"
       - run: |
           python --version
+      # Prepare Repository
+      - name: Prepare Repository
+        run: |
+          python ./resources/ci/common/prepare_repository.py
       # Cleanup Workspace
       - name: Cleanup Workspace
         run: |
