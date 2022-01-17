@@ -27,9 +27,13 @@ def prepare_repository():
         packageJSON = json.loads(packageReq.read().decode("utf-8"))
 
         #   get latest release from package
-        user = "miketrethewey"
-        repo = "averge_pack_mm1"
+        repoinfo = re.match('http(?:s?)\:\/\/(?:[^\.]*)(?:\.?)(?:[^\.]*)(?:\.?)(?:[^\/]*)(?:\/)([^\/]*)(?:\/)([^\/]*)', packManifestURL)
+        user = repoinfo.group(0)
+        repo = repoinfo.group(1)
         apiURL = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
+        print(apiURL)
+        pass
+
         apiReq = urllib.request.urlopen(apiURL, context=context)
         apiRes = json.loads(apiReq.read().decode("utf-8"))
 
