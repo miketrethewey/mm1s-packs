@@ -29,8 +29,8 @@ def prepare_repository():
 
         #   get latest release from package
         repoinfo = re.match('http(?:s?)\:\/\/(?:[^\.]*)(?:\.?)(?:[^\.]*)(?:\.?)(?:[^\/]*)(?:\/)([^\/]*)(?:\/)([^\/]*)', packManifestURL)
-        user = repoinfo.group(0)
-        repo = repoinfo.group(1)
+        user = repoinfo.group(1)
+        repo = repoinfo.group(2)
         apiURL = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
         print(apiURL)
         pass
