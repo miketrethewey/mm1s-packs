@@ -7,7 +7,7 @@ from shutil import copy, make_archive, move, rmtree  # file manipulation
 
 def prepare_repository():
   # open ../../meta/manifests/manifest.json for reading
-  with(open(os.path.join("resources", "meta", "manifests", "manifest.json"), "r")) as repoManifestFile:
+  with(open(os.path.join("resources", "app", "meta", "manifests", "manifest.json"), "r")) as repoManifestFile:
     repoManifestJSON = json.load(repoManifestFile)
     # open ../../repository.json for writing
     with(open(os.path.join("repository.json"), "w")) as repoRepositoryFile:
