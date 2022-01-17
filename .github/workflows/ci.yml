@@ -50,7 +50,7 @@ jobs:
   install-publish-pages:
     name: Publish Pages
     runs-on: ${{ matrix.os-name }}
-    needs: [ install-process-templates ]
+    needs: [ install-process-repository ]
 
     # VM settings
     #  os & python versions
