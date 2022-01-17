@@ -4,6 +4,8 @@ import json
 import os                     # for env vars
 import stat                   # for file stats
 import subprocess             # do stuff at the shell level
+import ssl
+import urllib.request
 from shutil import copy, make_archive, move, rmtree  # file manipulation
 
 def prepare_repository():
@@ -20,24 +22,26 @@ def prepare_repository():
       for packManifestURL in repoManifestJSON["packages"]:
         #  read each package from manifest
         #   get package manifest from master branch
-        print(packManifestURL)
-        packageJSON = {}
+        context = ssl._create_unverified_context()
+        packageReq = urllib.request.urlopen(packManifestURL, context=context)
+        packageJSON = json.loads(packageReq.read().decode("utf-8"))
+
         #   get latest release from package
         user = "miketrethewey"
         repo = "averge_pack_mm1"
-        print("https://api.github.com/repos/%s/%s/releases/latest" % (user, repo))
-        apiRes = {
-          "assets": [
-            {
-              "browser_download_url": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.0.33/averge_pack_mm1.zip"
-            }
-          ]
-        }
+        apiURL = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
+        apiReq = urllib.request.urlopen(apiURL, context=context)
+        apiRes = json.loads(apiReq.read().decode("utf-8"))
+
         #   get asset url
-        print(apiRes["assets"][0]["browser_download_url"])
         #   set link for package as asset url
         packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
+        #   update other stuff
+        for key in ["uid", "version"]:
+          packageJSON[key] = packageJSON[f"package_{key}"]
+          del packageJSON[f"package_{key}"]
         repoRepositoryJSON["packages"].append(packageJSON)
+
       repoRepositoryFile.seek(0)
       repoRepositoryFile.write(json.dumps(repoRepositoryJSON, indent=2))
       repoRepositoryFile.truncate()
