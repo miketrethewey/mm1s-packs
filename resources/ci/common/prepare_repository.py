@@ -2,6 +2,7 @@ import common
 import distutils.dir_util     # for copying trees
 import json
 import os                     # for env vars
+import re
 import stat                   # for file stats
 import subprocess             # do stuff at the shell level
 import ssl
