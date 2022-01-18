@@ -20,32 +20,38 @@ def prepare_repository():
         "name": repoManifestJSON["name"],
         "packages": []
       }
-      for packManifestURL in repoManifestJSON["packages"]:
-        #  read each package from manifest
-        #   get package manifest from master branch
-        context = ssl._create_unverified_context()
-        packageReq = urllib.request.urlopen(packManifestURL, context=context)
-        packageJSON = json.loads(packageReq.read().decode("utf-8"))
+      with(open(os.path.join("commit.txt"), "w")) as commit:
+        commit.write("Updating Repository:")
+        commit.write()
+        for packManifestURL in repoManifestJSON["packages"]:
+          #  read each package from manifest
+          #   get package manifest from master branch
+          context = ssl._create_unverified_context()
+          packageReq = urllib.request.urlopen(packManifestURL, context=context)
+          packageJSON = json.loads(packageReq.read().decode("utf-8"))
+          commit.write("Name: " + packageJSON["name"])
+          commit.write("By:   " + packageJSON["author"])
+          commit.write("URL:  " + packManifestURL)
 
-        #   get latest release from package
-        repoinfo = re.match('http(?:s?)\:\/\/(?:[^\.]*)(?:\.?)(?:[^\.]*)(?:\.?)(?:[^\/]*)(?:\/)([^\/]*)(?:\/)([^\/]*)', packManifestURL)
-        user = repoinfo.group(1)
-        repo = repoinfo.group(2)
-        apiURL = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
-        print(apiURL)
-        pass
+          #   get latest release from package
+          repoinfo = re.match('http(?:s?)\:\/\/(?:[^\.]*)(?:\.?)(?:[^\.]*)(?:\.?)(?:[^\/]*)(?:\/)([^\/]*)(?:\/)([^\/]*)', packManifestURL)
+          user = repoinfo.group(1)
+          repo = repoinfo.group(2)
+          apiURL = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
+          apiReq = urllib.request.urlopen(apiURL, context=context)
+          apiRes = json.loads(apiReq.read().decode("utf-8"))
 
-        apiReq = urllib.request.urlopen(apiURL, context=context)
-        apiRes = json.loads(apiReq.read().decode("utf-8"))
+          #   get asset url
+          #   set link for package as asset url
+          packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
+          commit.write("ZIP:  " + packageJSON["link"])
+          commit.write()
 
-        #   get asset url
-        #   set link for package as asset url
-        packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
-        #   update other stuff
-        for key in ["uid", "version"]:
-          packageJSON[key] = packageJSON[f"package_{key}"]
-          del packageJSON[f"package_{key}"]
-        repoRepositoryJSON["packages"].append(packageJSON)
+          #   update other stuff
+          for key in ["uid", "version"]:
+            packageJSON[key] = packageJSON[f"package_{key}"]
+            del packageJSON[f"package_{key}"]
+          repoRepositoryJSON["packages"].append(packageJSON)
 
       repoRepositoryFile.seek(0)
       repoRepositoryFile.write(json.dumps(repoRepositoryJSON, indent=2))
