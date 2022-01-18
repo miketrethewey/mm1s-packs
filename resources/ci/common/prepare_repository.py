@@ -21,17 +21,17 @@ def prepare_repository():
         "packages": []
       }
       with(open(os.path.join("commit.txt"), "w")) as commit:
-        commit.write("Updating Repository:")
-        commit.write("")
+        commit.write("Updating Repository:" + "\n")
+        commit.write("\n")
         for packManifestURL in repoManifestJSON["packages"]:
           #  read each package from manifest
           #   get package manifest from master branch
           context = ssl._create_unverified_context()
           packageReq = urllib.request.urlopen(packManifestURL, context=context)
           packageJSON = json.loads(packageReq.read().decode("utf-8"))
-          commit.write("Name: " + packageJSON["name"])
-          commit.write("By:   " + packageJSON["author"])
-          commit.write("URL:  " + packManifestURL)
+          commit.write("Name: " + packageJSON["name"] + "\n")
+          commit.write("By:   " + packageJSON["author"] + "\n")
+          commit.write("URL:  " + packManifestURL + "\n")
 
           #   get latest release from package
           repoinfo = re.match('http(?:s?)\:\/\/(?:[^\.]*)(?:\.?)(?:[^\.]*)(?:\.?)(?:[^\/]*)(?:\/)([^\/]*)(?:\/)([^\/]*)', packManifestURL)
@@ -44,8 +44,8 @@ def prepare_repository():
           #   get asset url
           #   set link for package as asset url
           packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
-          commit.write("ZIP:  " + packageJSON["link"])
-          commit.write("")
+          commit.write("ZIP:  " + packageJSON["link"] + "\n")
+          commit.write("\n")
 
           #   update other stuff
           for key in ["uid", "version"]:
