@@ -51,6 +51,7 @@ def prepare_repository():
           for key in ["uid", "version"]:
             packageJSON[key] = packageJSON[f"package_{key}"]
             del packageJSON[f"package_{key}"]
+          print(re.match('([\d\.]*)', apiRes["tag_name"]))
           packageJSON["version"] = re.match('([\d\.]*)', apiRes["tag_name"]).group(1)
           repoRepositoryJSON["packages"].append(packageJSON)
 
