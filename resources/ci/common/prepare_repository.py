@@ -22,7 +22,7 @@ def prepare_repository():
       }
       with(open(os.path.join("commit.txt"), "w")) as commit:
         commit.write("Updating Repository:")
-        commit.write()
+        commit.write("")
         for packManifestURL in repoManifestJSON["packages"]:
           #  read each package from manifest
           #   get package manifest from master branch
@@ -45,7 +45,7 @@ def prepare_repository():
           #   set link for package as asset url
           packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
           commit.write("ZIP:  " + packageJSON["link"])
-          commit.write()
+          commit.write("")
 
           #   update other stuff
           for key in ["uid", "version"]:
