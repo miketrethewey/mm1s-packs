@@ -52,7 +52,7 @@ def prepare_repository():
             packageJSON[key] = packageJSON[f"package_{key}"]
             del packageJSON[f"package_{key}"]
           print(re.match('([\d\.]*)', apiRes["tag_name"]))
-          packageJSON["version"] = re.match('([\d\.]*)', apiRes["tag_name"]).group(1)
+          packageJSON["version"] = re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]).group(1)
           repoRepositoryJSON["packages"].append(packageJSON)
 
       repoRepositoryFile.seek(0)
