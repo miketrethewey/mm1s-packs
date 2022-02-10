@@ -46,10 +46,9 @@ def prepare_repository():
           #   get asset url
           #   set link for package as asset url
           packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
-          toWrite.append(
-            "ZIP:  " + packageJSON["link"] + "\n",
-            "\n"
-          )
+          toWrite.append("ZIP:  " + packageJSON["link"] + "\n")
+          toWrite.append("\n")
+
           commit.write(toWrite)
 
           #   update other stuff
