@@ -30,9 +30,9 @@ def prepare_repository():
           packageReq = urllib.request.urlopen(packManifestURL, context=context)
           packageJSON = json.loads(packageReq.read().decode("utf-8"))
           toWrite = [
-            "Name: " + packageJSON["name"] + "\n",
-            "By:   " + packageJSON["author"] + "\n",
-            "URL:  " + packManifestURL + "\n"
+            "Name: " + packageJSON["name"],
+            "By:   " + packageJSON["author"],
+            "URL:  " + packManifestURL
           ]
 
           #   get latest release from package
@@ -46,10 +46,10 @@ def prepare_repository():
           #   get asset url
           #   set link for package as asset url
           packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
-          toWrite.append("ZIP:  " + packageJSON["link"] + "\n")
-          toWrite.append("\n")
+          toWrite.append("ZIP:  " + packageJSON["link"])
+          toWrite.append("")
 
-          commit.write(toWrite)
+          commit.write("\n".join(toWrite))
 
           #   update other stuff
           for key in ["uid", "version"]:
@@ -60,7 +60,7 @@ def prepare_repository():
             f"Tag Name: {apiRes['tag_name']}",
             re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"])
           )
-          print(toWrite)
+          print("\n".join(toWrite))
 
           packageJSON["version"] = re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]).group(1)
           repoRepositoryJSON["packages"].append(packageJSON)
