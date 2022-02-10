@@ -57,7 +57,11 @@ def prepare_repository():
             del packageJSON[f"package_{key}"]
 
           toWrite.append(f"Tag Name: {apiRes['tag_name']}")
-          toWrite.append(re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]))
+          toWrite.append(
+            str(
+              re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"])
+            )
+          )
 
           print("\n".join(toWrite))
 
