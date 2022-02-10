@@ -29,9 +29,11 @@ def prepare_repository():
           context = ssl._create_unverified_context()
           packageReq = urllib.request.urlopen(packManifestURL, context=context)
           packageJSON = json.loads(packageReq.read().decode("utf-8"))
-          commit.write("Name: " + packageJSON["name"] + "\n")
-          commit.write("By:   " + packageJSON["author"] + "\n")
-          commit.write("URL:  " + packManifestURL + "\n")
+          toWrite = [
+            "Name: " + packageJSON["name"] + "\n",
+            "By:   " + packageJSON["author"] + "\n",
+            "URL:  " + packManifestURL + "\n"
+          ]
 
           #   get latest release from package
           repoinfo = re.match('http(?:s?)\:\/\/(?:[^\.]*)(?:\.?)(?:[^\.]*)(?:\.?)(?:[^\/]*)(?:\/)([^\/]*)(?:\/)([^\/]*)', packManifestURL)
@@ -44,15 +46,23 @@ def prepare_repository():
           #   get asset url
           #   set link for package as asset url
           packageJSON["link"] = apiRes["assets"][0]["browser_download_url"]
-          commit.write("ZIP:  " + packageJSON["link"] + "\n")
-          commit.write("\n")
+          toWrite.append(
+            "ZIP:  " + packageJSON["link"] + "\n",
+            "\n"
+          )
+          commit.write(toWrite)
 
           #   update other stuff
           for key in ["uid", "version"]:
             packageJSON[key] = packageJSON[f"package_{key}"]
             del packageJSON[f"package_{key}"]
-          print(f"Tag Name: {apiRes['tag_name']}")
-          print(re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]))
+
+          toWrite.append(
+            f"Tag Name: {apiRes['tag_name']}",
+            re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"])
+          )
+          print(toWrite)
+
           packageJSON["version"] = re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]).group(1)
           repoRepositoryJSON["packages"].append(packageJSON)
 
