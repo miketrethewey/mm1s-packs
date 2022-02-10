@@ -56,10 +56,9 @@ def prepare_repository():
             packageJSON[key] = packageJSON[f"package_{key}"]
             del packageJSON[f"package_{key}"]
 
-          toWrite.append(
-            f"Tag Name: {apiRes['tag_name']}",
-            re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"])
-          )
+          toWrite.append(f"Tag Name: {apiRes['tag_name']}")
+          toWrite.append(re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]))
+
           print("\n".join(toWrite))
 
           packageJSON["version"] = re.match('(?:[A-Za-z]*)([\d\.]*)', apiRes["tag_name"]).group(1)
