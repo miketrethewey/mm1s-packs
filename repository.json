@@ -5,6 +5,10 @@
       "name": "Axiom Verge Randomizer",
       "author": "Seraphin Eveles & Mike Trethewey",
       "game_name": "Axiom Verge",
+      "flags": [
+        "map",
+        "pins"
+      ],
       "platform": "pc",
       "documentation_url": "https://github.com/miketrethewey/averge_pack_mm1/blob/master/README.md",
       "variants": {
@@ -12,7 +16,11 @@
           "display_name": "Items-Only"
         },
         "standard_map": {
-          "display_name": "Standard with Map"
+          "display_name": "Standard with Map",
+          "flags": [
+            "map",
+            "pins"
+          ]
         }
       },
       "link": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.0.40/averge_pack_mm1.zip",
