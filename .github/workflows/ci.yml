@@ -85,10 +85,10 @@ jobs:
       # Set Commit
       - name: Set Commit
         run: |
-          git commit -q -F commit.txt
-          git log
+          git commit -q -F commit.txt || echo "No differences in commit"
+          git log || echo "Failed to print Git Log"
       # Push to GH-Pages
       - name: Push to GH-Pages (PUBLISH)
         run: |
-          git push
+          git push || echo "Failed to push to GitHub Pages"
         if: contains(github.ref, 'publish')
