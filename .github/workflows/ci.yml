@@ -85,7 +85,7 @@ jobs:
       # Set Commit
       - name: Set Commit
         run: |
-          git commit -q -F commit.txt || echo "No differences in commit"
+          git commit -q -F commit.txt || echo ""
           git log || echo "Failed to print Git Log"
       # Push to GH-Pages
       - name: Push to GH-Pages (PUBLISH)
