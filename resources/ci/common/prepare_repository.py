@@ -56,6 +56,18 @@ def prepare_repository():
             packageJSON[key] = packageJSON[f"package_{key}"]
             del packageJSON[f"package_{key}"]
 
+          #   fix variants
+          curVariants = packageJSON["variants"]
+          newVariants = []
+          for [folder, variant] in curVariants.items():
+              newVariant = {
+                  "name": variant["display_name"]
+              }
+              del variant["display_name"]
+              newVariant.update(variant)
+              newVariants.append(newVariant)
+          packageJSON["variants"] = newVariants
+
           toWrite.append(f"Tag Name: {apiRes['tag_name']}")
           toWrite.append(
             str(
@@ -70,6 +82,7 @@ def prepare_repository():
 
       repoRepositoryFile.seek(0)
       repoRepositoryFile.write(json.dumps(repoRepositoryJSON, indent=2))
+      repoRepositoryFile.write("\n")
       repoRepositoryFile.truncate()
 
 def main():

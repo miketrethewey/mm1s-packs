@@ -1,30 +1,3 @@
 {
-  "name": "MM1's Packs",
-  "packages": [
-    {
-      "name": "Axiom Verge Randomizer",
-      "author": "Seraphin Eveles & Mike Trethewey",
-      "game_name": "Axiom Verge",
-      "flags": [
-        "map",
-        "pins"
-      ],
-      "version": "1.0",
-      "uid": "averge_pack_mm1",
-      "link": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.0.33/averge_pack_mm1.zip",
-      "documentation_url": "https://github.com/miketrethewey/averge_pack_mm1/blob/master/README.md",
-      "variants": [
-        {
-          "name": "Items-Only"
-        },
-        {
-          "name": "Standard with Map",
-          "flags": [
-            "map",
-            "pins"
-          ]
-        }
-      ]
-    }
-  ]
+  // do nothing
 }
