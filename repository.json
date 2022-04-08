@@ -11,18 +11,18 @@
       ],
       "platform": "pc",
       "documentation_url": "https://github.com/miketrethewey/averge_pack_mm1/blob/master/README.md",
-      "variants": {
-        "items_only": {
-          "display_name": "Items-Only"
+      "variants": [
+        {
+          "name": "Items-Only"
         },
-        "standard_map": {
-          "display_name": "Standard with Map",
+        {
+          "name": "Standard with Map",
           "flags": [
             "map",
             "pins"
           ]
         }
-      },
+      ],
       "link": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.5.117/averge_pack_mm1.zip",
       "uid": "averge_pack_mm1",
       "version": "1.5.117"
