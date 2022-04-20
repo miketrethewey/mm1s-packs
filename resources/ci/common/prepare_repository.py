@@ -1,6 +1,6 @@
 import common
 import distutils.dir_util     # for copying trees
-import json
+import commentjson as json
 import os                     # for env vars
 import re
 import stat                   # for file stats
