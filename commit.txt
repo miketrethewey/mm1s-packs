@@ -3,4 +3,4 @@ Updating Repository:
 Name: Axiom Verge Randomizer
 By:   Seraphin Eveles & Mike Trethewey
 URL:  https://raw.githubusercontent.com/miketrethewey/averge_pack_mm1/master/manifest.json
-ZIP:  https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.5.117/averge_pack_mm1.zip
+ZIP:  https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.5.123/averge_pack_mm1.zip
