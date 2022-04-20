@@ -31,8 +31,13 @@ jobs:
           architecture: "x64"
       - run: |
           python --version
+      # Install python modules
       - run: |
-          python -m pip install commentjson
+          python -m pip install commentjson pyyaml
+      # Analyze used GitHub Actions
+      - name: Analyze used GitHub Actions
+        run: |
+          python ./resources/ci/common/list_actions.py
       # Prepare Repository
       - name: Prepare Repository
         run: |
