@@ -3,7 +3,7 @@
   "packages": [
     {
       "name": "Axiom Verge Randomizer",
-      "author": "Seraphin Eveles & Mike Trethewey",
+      "author": "Seraphin Eveles & Minnie A. Trethewey",
       "game_name": "Axiom Verge",
       "flags": [],
       "platform": "pc",
@@ -24,9 +24,9 @@
           ]
         }
       ],
-      "link": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.5.123/averge_pack_mm1.zip",
+      "link": "https://github.com/miketrethewey/averge_pack_mm1/releases/download/v1.5.130/averge_pack_mm1.zip",
       "uid": "averge_pack_mm1",
-      "version": "1.5.123"
+      "version": "1.5.130"
     }
   ]
 }
