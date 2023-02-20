@@ -46,7 +46,7 @@ jobs:
       - name: 💿Install Modules
         shell: bash
         run: |
-          python -m pip install commentjson pyyaml
+          python -m pip install -r "./resources/app/meta/manifests/pip_requirements.txt"
       # Analyze used GitHub Actions
       - name: Analyze used GitHub Actions
         shell: bash

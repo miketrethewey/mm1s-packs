@@ -98,14 +98,14 @@ def prepare_repository():
                             packageJSON["variants"] = newVariants
 
                             toWrite.append(f"Tag Name: {apiRes['tag_name']}")
-                            toWrite.append(
-                                str(
-                                    re.match(
-                                        r'(?:[A-Za-z]*)([\d\.]*)',
-                                        apiRes["tag_name"]
-                                    )
-                                )
-                            )
+                            # toWrite.append(
+                            #     str(
+                            #         re.match(
+                            #             r'(?:[A-Za-z]*)([\d\.]*)',
+                            #             apiRes["tag_name"]
+                            #         )
+                            #     )
+                            # )
 
                             print("\n".join(toWrite))
 
