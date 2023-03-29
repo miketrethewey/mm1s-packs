@@ -18,7 +18,8 @@ def prepare_repository():
             "resources",
             "app",
             "meta",
-            "manifests","manifest.json"
+            "manifests",
+            "manifest.json"
         ),
         "r",
         encoding="utf-8") as repoManifestFile:
